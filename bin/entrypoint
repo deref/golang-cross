@@ -1,0 +1,39 @@
+#!/bin/sh
+
+if [ -z "$GOOS" ] || [ -z "$GOARCH" ] ; then
+  echo 'Expected GOOS and GOARCH to be set' > /dev/stderr
+  exit 1
+fi
+
+case "${GOOS}" in
+  darwin)
+    zig_os=macos
+    export GOFLAGS="-ldflags=-w ${GOFLAGS}"
+    ;;
+  linux)
+    zig_os=linux
+    ;;
+  *)
+    echo "Unsupported GOOS: ${GOOS}" > /dev/stderr
+    ;;
+esac
+  
+case "${GOARCH}" in
+  amd64)
+    zig_arch=x86_64
+    ;;
+  arm64)
+    zig_arch=aarch64
+    ;;
+  *)
+    echo "Unsupported GOARCH: ${GOARCH}" > /dev/stderr
+    ;;
+esac
+  
+export GOLANG_CROSS_ZIG_TARGET=${zig_arch}-${zig_os}
+
+if [ "$#" -eq 0 ]; then
+  exec /bin/bash
+else
+  exec "$@"
+fi

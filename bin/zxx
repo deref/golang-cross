@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ -z "$GOLANG_CROSS_ZIG_TARGET" ]; then
+  echo 'Expected GOLANG_CROSS_ZIG_TARGET to be set' > /dev/stderr
+  exit 1
+fi
+
+zig c++ \
+  -F /opt/mac.sdk/System/Library/Frameworks \
+  -target $GOLANG_CROSS_ZIG_TARGET \
+  $@
