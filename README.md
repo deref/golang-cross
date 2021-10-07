@@ -18,7 +18,6 @@ use this image in much the same way. Primarily, the go is rooted at
 `/go`, so you put your code into `/go/src/YOURAPP`.
 
 Cross-compilation is driven by the `GOOS` and `GOARCH` variables.
-This image inherits from the base golang image, so you mount your code into `/go/src`.
 
 Example:
 
@@ -27,7 +26,7 @@ docker run \
   -e GOOS=darwin \
   -e GOARCH=amd64 \
   --mount "type=bind,source=${PWD},target=/go/src/example" \
-  deref/golang-cross \
+  ghcr.io/deref/golang-cross \
   -w /go/src/example \
   go build .
 ```
@@ -38,3 +37,9 @@ mount:
 ```bash
   --mount "type=bind,source=${GOPATH}/pkg/mod,target=/go/pkg/mod"
 ```
+
+## Releases
+
+Pushing a version tag to this repository to build a new release using Github
+Actions. See [./.github/workflows/publish.yml](./.github/workflows/publish.yml)
+for details.
