@@ -26,8 +26,8 @@ docker run \
   -e GOOS=darwin \
   -e GOARCH=amd64 \
   --mount "type=bind,source=${PWD},target=/go/src/example" \
-  ghcr.io/deref/golang-cross \
   -w /go/src/example \
+  ghcr.io/deref/golang-cross \
   go build .
 ```
 
