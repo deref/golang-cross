@@ -31,8 +31,7 @@ docker run \
   go build .
 ```
 
-To speed up builds, you can also mount cached package sources by adding another
-mount:
+To speed up builds, you can use cached package sources by adding another mount:
 
 ```bash
   --mount "type=bind,source=${GOPATH}/pkg/mod,target=/go/pkg/mod"
